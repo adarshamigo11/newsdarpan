@@ -102,7 +102,10 @@ export default function AdminPage() {
         <h1 className="font-serif text-3xl font-bold text-foreground">Admin Panel</h1>
         <div className="flex items-center gap-4">
           <Link href="/admin/old-news" className="text-sm text-primary hover:underline">
-            Manage Old News &rarr;
+            Manage Old News
+          </Link>
+          <Link href="/admin/contact-messages" className="text-sm text-primary hover:underline">
+            Contact Messages
           </Link>
           <button onClick={handleLogout} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Log out

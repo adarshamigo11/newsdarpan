@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { getRecentNews } from '@/lib/news-store'
 import { timeAgo } from '@/lib/time-ago'
 
@@ -11,9 +12,15 @@ export async function SiteFooter() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Logo */}
           <div>
-            <h2 className="font-serif text-2xl font-bold mb-3 text-foreground dark:text-white">
-              MP <span className="text-primary">News</span> Portal
-            </h2>
+            <Link href="/" className="inline-block mb-3">
+              <Image 
+                src="/logo.png" 
+                alt="News Darpan Logo" 
+                width={280} 
+                height={80} 
+                className="h-20 w-auto object-contain"
+              />
+            </Link>
             <p className="text-sm text-foreground/60 dark:text-white/60 leading-relaxed">
               Your trusted source for premium news coverage across Madhya Pradesh.
             </p>
@@ -48,7 +55,7 @@ export async function SiteFooter() {
           </div>
         </div>
         <div className="mt-10 pt-6 border-t border-foreground/10 dark:border-white/10 text-center">
-          <p className="text-xs text-foreground/40 dark:text-white/40">MP News Portal. All rights reserved.</p>
+          <p className="text-xs text-foreground/40 dark:text-white/40">News Darpan. All rights reserved.</p>
         </div>
       </div>
     </footer>

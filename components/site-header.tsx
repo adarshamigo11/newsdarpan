@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { Cloud, ChevronDown, Menu, X, RefreshCw } from 'lucide-react'
 import { MP_CITIES } from '@/lib/cities'
@@ -130,11 +131,15 @@ export function SiteHeader() {
       {/* Top bar */}
       <div className="mx-auto max-w-7xl flex items-center justify-between px-4 py-3">
         <span className="text-xs text-muted-foreground hidden sm:block">{today}</span>
-        <Link href="/" className="flex flex-col items-center">
-          <h1 className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-foreground">
-            MP <span className="text-primary">News</span> Portal
-          </h1>
-          <span className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground">Madhya Pradesh</span>
+        <Link href="/" className="flex items-center justify-center">
+          <Image 
+            src="/logo.png" 
+            alt="News Darpan Logo" 
+            width={240} 
+            height={100} 
+            className="h-16 w-auto object-contain"
+            priority
+          />
         </Link>
         <div className="hidden sm:flex items-center gap-2">
           <WeatherWidget />

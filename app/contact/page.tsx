@@ -1,6 +1,47 @@
+'use client'
+
+import { useState } from 'react'
 import { MapPin, Mail, Phone, Clock } from 'lucide-react'
 
 export default function ContactPage() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [submitMessage, setSubmitMessage] = useState('')
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (!name || !email || !message) {
+      setSubmitMessage('Please fill in all fields.')
+      return
+    }
+
+    setSubmitting(true)
+    setSubmitMessage('')
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message }),
+      })
+
+      if (res.ok) {
+        setSubmitMessage('Message sent successfully!')
+        setName('')
+        setEmail('')
+        setMessage('')
+      } else {
+        setSubmitMessage('Failed to send message. Please try again.')
+      }
+    } catch {
+      setSubmitMessage('Network error. Please try again.')
+    }
+
+    setSubmitting(false)
+  }
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
       <h1 className="font-serif text-3xl md:text-4xl font-bold mb-8 text-foreground">Contact Us</h1>
@@ -12,7 +53,7 @@ export default function ContactPage() {
             </div>
             <div>
               <h3 className="font-semibold text-foreground">Address</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">MP News Portal Office<br />Press Complex, Zone-1<br />Maharana Pratap Nagar<br />Bhopal, Madhya Pradesh 462011</p>
+              <p className="text-muted-foreground text-sm leading-relaxed">Indore (M.P.)</p>
             </div>
           </div>
           <div className="flex items-start gap-4">
@@ -21,7 +62,7 @@ export default function ContactPage() {
             </div>
             <div>
               <h3 className="font-semibold text-foreground">Email</h3>
-              <p className="text-muted-foreground text-sm">editor@mpnewsportal.com<br />info@mpnewsportal.com</p>
+              <p className="text-muted-foreground text-sm">-</p>
             </div>
           </div>
           <div className="flex items-start gap-4">
@@ -30,7 +71,7 @@ export default function ContactPage() {
             </div>
             <div>
               <h3 className="font-semibold text-foreground">Phone</h3>
-              <p className="text-muted-foreground text-sm">+91 755 123 4567<br />+91 731 987 6543</p>
+              <p className="text-muted-foreground text-sm">-</p>
             </div>
           </div>
           <div className="flex items-start gap-4">
@@ -45,21 +86,26 @@ export default function ContactPage() {
         </div>
         <div className="rounded-xl border border-border p-6 bg-card">
           <h2 className="font-serif text-xl font-bold mb-4 text-foreground">Send us a message</h2>
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-1 text-foreground" htmlFor="name">Name</label>
-              <input id="name" type="text" className="w-full rounded-lg border border-input px-3 py-2 text-sm bg-background text-foreground" placeholder="Your name" />
+              <input id="name" type="text" value={name} onChange={e => setName(e.target.value)} className="w-full rounded-lg border border-input px-3 py-2 text-sm bg-background text-foreground" placeholder="Your name" />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1 text-foreground" htmlFor="email">Email</label>
-              <input id="email" type="email" className="w-full rounded-lg border border-input px-3 py-2 text-sm bg-background text-foreground" placeholder="your@email.com" />
+              <input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full rounded-lg border border-input px-3 py-2 text-sm bg-background text-foreground" placeholder="your@email.com" />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1 text-foreground" htmlFor="message">Message</label>
-              <textarea id="message" rows={4} className="w-full rounded-lg border border-input px-3 py-2 text-sm bg-background text-foreground resize-none" placeholder="Your message..." />
+              <textarea id="message" rows={4} value={message} onChange={e => setMessage(e.target.value)} className="w-full rounded-lg border border-input px-3 py-2 text-sm bg-background text-foreground resize-none" placeholder="Your message..." />
             </div>
-            <button type="submit" className="w-full bg-primary text-primary-foreground py-2.5 rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors">
-              Send Message
+            {submitMessage && (
+              <p className={`text-sm ${submitMessage.includes('success') ? 'text-green-600' : 'text-destructive'}`}>
+                {submitMessage}
+              </p>
+            )}
+            <button type="submit" disabled={submitting} className="w-full bg-primary text-primary-foreground py-2.5 rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors disabled:opacity-50">
+              {submitting ? 'Sending...' : 'Send Message'}
             </button>
           </form>
         </div>
