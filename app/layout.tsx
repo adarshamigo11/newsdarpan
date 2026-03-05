@@ -10,8 +10,12 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
 
 export const metadata: Metadata = {
-  title: 'MP News Portal - Madhya Pradesh Premium News',
+  title: 'News Darpan - Madhya Pradesh Premium News',
   description: 'Premium digital newspaper covering Madhya Pradesh - Indore, Bhopal, Jabalpur, Gwalior and more.',
+  icons: {
+    icon: '/logo.png',
+    apple: '/logo.png',
+  },
 }
 
 export default function RootLayout({
