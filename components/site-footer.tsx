@@ -32,7 +32,6 @@ export async function SiteFooter() {
               <li><Link href="/about" className="text-sm text-foreground/60 dark:text-white/60 hover:text-primary transition-colors">About Us</Link></li>
               <li><Link href="/contact" className="text-sm text-foreground/60 dark:text-white/60 hover:text-primary transition-colors">Contact Us</Link></li>
               <li><Link href="/social" className="text-sm text-foreground/60 dark:text-white/60 hover:text-primary transition-colors">Social Media</Link></li>
-              <li><Link href="/admin" className="text-sm text-foreground/60 dark:text-white/60 hover:text-primary transition-colors">Admin</Link></li>
             </ul>
           </div>
           {/* Recent News */}
