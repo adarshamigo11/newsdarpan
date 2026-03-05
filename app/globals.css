@@ -1,0 +1,106 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #f8fafc;
+  --foreground: #1a1a1a;
+  --card: rgba(255, 255, 255, 0.85);
+  --card-foreground: #1a1a1a;
+  --popover: rgba(255, 255, 255, 0.95);
+  --popover-foreground: #1a1a1a;
+  --primary: #c40000;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(241, 245, 249, 0.8);
+  --secondary-foreground: #1a1a1a;
+  --muted: rgba(241, 245, 249, 0.6);
+  --muted-foreground: #64748b;
+  --accent: rgba(241, 245, 249, 0.8);
+  --accent-foreground: #1a1a1a;
+  --destructive: #c40000;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 0, 0, 0.08);
+  --input: rgba(0, 0, 0, 0.08);
+  --ring: #c40000;
+  --radius: 0.625rem;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --card: rgba(20, 20, 20, 0.8);
+  --card-foreground: #fafafa;
+  --popover: rgba(20, 20, 20, 0.95);
+  --popover-foreground: #fafafa;
+  --primary: #ff4444;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(40, 40, 40, 0.8);
+  --secondary-foreground: #fafafa;
+  --muted: rgba(40, 40, 40, 0.6);
+  --muted-foreground: #a0a0a0;
+  --accent: rgba(40, 40, 40, 0.8);
+  --accent-foreground: #fafafa;
+  --destructive: #ff4444;
+  --destructive-foreground: #ffffff;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #ff4444;
+}
+
+@theme inline {
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-mono: 'Geist Mono', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .bg-card {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  
+  body {
+    min-height: 100vh;
+  }
+  
+  body:not(.dark) {
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 25%, #f8fafc 50%, #f0f9ff 75%, #e0f2fe 100%);
+  }
+  
+  .dark body {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+  }
+}
