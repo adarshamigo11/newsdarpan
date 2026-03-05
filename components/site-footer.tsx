@@ -2,6 +2,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getRecentNews } from '@/lib/news-store'
 import { timeAgo } from '@/lib/time-ago'
+import { MP_CITIES } from '@/lib/cities'
+
+const NAV_CITIES = MP_CITIES.slice(0, 6)
 
 export async function SiteFooter() {
   const recent = await getRecentNews(4)
@@ -9,7 +12,7 @@ export async function SiteFooter() {
   return (
     <footer className="bg-white/80 backdrop-blur-xl border-t border-border dark:bg-[#0a0a0a] dark:border-white/10">
       <div className="mx-auto max-w-7xl px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Logo */}
           <div>
             <Link href="/" className="inline-block mb-3">
@@ -32,6 +35,19 @@ export async function SiteFooter() {
               <li><Link href="/about" className="text-sm text-foreground/60 dark:text-white/60 hover:text-primary transition-colors">About Us</Link></li>
               <li><Link href="/contact" className="text-sm text-foreground/60 dark:text-white/60 hover:text-primary transition-colors">Contact Us</Link></li>
               <li><Link href="/social" className="text-sm text-foreground/60 dark:text-white/60 hover:text-primary transition-colors">Social Media</Link></li>
+            </ul>
+          </div>
+          {/* City Quick Links */}
+          <div>
+            <h3 className="font-serif text-lg font-semibold mb-4 text-foreground dark:text-white">Cities</h3>
+            <ul className="flex flex-col gap-2">
+              {NAV_CITIES.map(city => (
+                <li key={city}>
+                  <Link href={`/city/${city.toLowerCase()}`} className="text-sm text-foreground/60 dark:text-white/60 hover:text-primary transition-colors">
+                    {city}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
           {/* Recent News */}

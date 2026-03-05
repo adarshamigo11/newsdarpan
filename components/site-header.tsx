@@ -160,8 +160,6 @@ export function SiteHeader() {
             {NAV_CITIES.map(c => (
               <li key={c}><NavLink href={`/city/${c.toLowerCase()}`}>{c}</NavLink></li>
             ))}
-            <li><NavLink href="/about">About</NavLink></li>
-            <li><NavLink href="/contact">Contact</NavLink></li>
           </ul>
         </div>
       </nav>
@@ -174,8 +172,6 @@ export function SiteHeader() {
             {NAV_CITIES.map(c => (
               <li key={c}><MobileNavLink href={`/city/${c.toLowerCase()}`} onClick={() => setMobileOpen(false)}>{c}</MobileNavLink></li>
             ))}
-            <li><MobileNavLink href="/about" onClick={() => setMobileOpen(false)}>About</MobileNavLink></li>
-            <li><MobileNavLink href="/contact" onClick={() => setMobileOpen(false)}>Contact</MobileNavLink></li>
           </ul>
         </div>
       )}
