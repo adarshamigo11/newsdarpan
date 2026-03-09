@@ -64,14 +64,20 @@ function toNewsItem(doc: Record<string, unknown>): NewsItem {
 }
 
 export async function getAllNews(): Promise<NewsItem[]> {
-  const col = await getCollection()
-  if (!col) {
+  try {
+    const col = await getCollection()
+    if (!col) {
+      return readLocalNews().sort((a, b) => 
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      )
+    }
+    const docs = await col.find({}).sort({ createdAt: -1 }).toArray()
+    return docs.map(doc => toNewsItem(doc as unknown as Record<string, unknown>))
+  } catch {
     return readLocalNews().sort((a, b) => 
       new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     )
   }
-  const docs = await col.find({}).sort({ createdAt: -1 }).toArray()
-  return docs.map(doc => toNewsItem(doc as unknown as Record<string, unknown>))
 }
 
 export async function getNewsById(id: string): Promise<NewsItem | undefined> {
@@ -104,14 +110,20 @@ export async function getNewsByCity(city: string): Promise<NewsItem[]> {
 }
 
 export async function getRecentNews(limit = 4): Promise<NewsItem[]> {
-  const col = await getCollection()
-  if (!col) {
+  try {
+    const col = await getCollection()
+    if (!col) {
+      return readLocalNews()
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+        .slice(0, limit)
+    }
+    const docs = await col.find({}).sort({ createdAt: -1 }).limit(limit).toArray()
+    return docs.map(doc => toNewsItem(doc as unknown as Record<string, unknown>))
+  } catch {
     return readLocalNews()
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
       .slice(0, limit)
   }
-  const docs = await col.find({}).sort({ createdAt: -1 }).limit(limit).toArray()
-  return docs.map(doc => toNewsItem(doc as unknown as Record<string, unknown>))
 }
 
 export async function addNews(item: Omit<NewsItem, 'id' | 'createdAt'>): Promise<NewsItem> {

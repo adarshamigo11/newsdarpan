@@ -163,7 +163,7 @@ export function SiteHeader() {
           </ul>
         </div>
       </nav>
-      {/* Mobile menu */}
+      {/* Mobile  menu */}
       {mobileOpen && (
         <div className="md:hidden border-t border-border bg-card p-4">
           <div className="mb-3"><WeatherWidget /></div>
